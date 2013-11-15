@@ -3,6 +3,13 @@ WorkerProxy
 
 A scaffolding library for dealing with Web Workers
 
+Big Fat Warning
+---------------
+
+**WorkerProxy is not yet production-ready.**
+Wait, now that I think about it, *it will probably kill your cat*. 
+You've been warned...
+
 Example
 -------
 
