@@ -1,7 +1,7 @@
 WorkerProxy
 ===========
 
-A scaffolding library for dealing with Web Workers
+A scaffolding library for dealing with Web Workers *in style*, by leveraging jQuery Deferred/promise.
 
 Big Fat Warning
 ---------------
@@ -9,6 +9,10 @@ Big Fat Warning
 **WorkerProxy is not yet production-ready.**
 Wait, now that I think about it, *it will probably kill your cat*. 
 You've been warned...
+
+Dependencies
+------------
+* jQuery >= 1.6
 
 Example
 -------
