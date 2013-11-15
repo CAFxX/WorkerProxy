@@ -17,7 +17,7 @@ Dependencies
 Example
 -------
 
-**foo-worker.js**
+*foo-worker.js*
 
     importScripts('WorkerProxy.js');
     
@@ -25,7 +25,7 @@ Example
       return x+1;
     }
 
-**foo.htm**
+*foo.htm*
 
     <html>
       <head>
@@ -43,3 +43,38 @@ Example
       <body>
       </body>
     </html>
+
+Planned features
+----------------
+The following features are not implemented yet, but are on the roadmap.
+
+### Inline functions
+
+Give the ability to define simple functions inline, have them uneval()ed and injected in a blank worker.
+
+*Regular Javascript*
+
+    var worker = new WorkerProxy({
+        foo: function (x) {
+            return x+1;
+        }
+    });
+    worker.foo(5).then(function(result) {
+        // result is 6
+    });
+    
+### Reverse RPC
+
+Give the ability to call functions in the main javascript code from worker code.
+
+*workerCode.js*
+
+    importScripts('WorkerProxy.js');
+    alert(5); // perform a RPC to window.alert
+    
+*Regular Javascript*
+
+    var worker = new WorkerProxy('workerCode.js', {
+        alert: window.alert
+    });
+    
