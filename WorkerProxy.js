@@ -1,6 +1,6 @@
 if (typeof self.document !== 'undefined') {
   // regular Javascript code
-  function WorkerProxy(jsFile) {
+  window['WorkerProxy'] = function(jsFile) {
     'use strict';
     var proxy = this;
     var remoteCall = (function() {
@@ -37,7 +37,6 @@ if (typeof self.document !== 'undefined') {
   }
 } else {
   // Web Worker code
-  delete WorkerProxy;                                                           // remove WorkerProxy (it gets defined regardless)
   self.addEventListener('message', function(e) {
     'use strict';
     try {
