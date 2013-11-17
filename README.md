@@ -134,8 +134,10 @@ Dependencies
 
 Unit tests
 ----------
-
-<iframe src="https://rawgithub.com/CAFxX/WorkerProxy/master/test/test.htm"></iframe>
+Unit tests are based on QUnit and can be found in the test/ directory. 
+The tests are meant to be run in the browser: 
+click [here](https://rawgithub.com/CAFxX/WorkerProxy/master/test/test.htm) 
+to open the unit test page for master.
 
 License
 -------
