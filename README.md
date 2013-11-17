@@ -81,7 +81,7 @@ The following features are not implemented yet, but are on the roadmap.
 
 ### Inline functions
 
-Give the ability to define simple functions inline, have them uneval()ed and injected in a blank worker.
+Define simple functions inline, have them uneval()ed and injected in a blank worker.
 
 *Regular Javascript*
 
@@ -96,7 +96,7 @@ Give the ability to define simple functions inline, have them uneval()ed and inj
     
 ### Reverse RPC
 
-Give the ability to call functions in the main javascript code from worker code.
+Call functions in the main javascript code from worker code
 
 *workerCode.js*
 
@@ -109,6 +109,25 @@ Give the ability to call functions in the main javascript code from worker code.
       alert: window.alert
     });
     
+### RPC eval
+
+Easily eval() code in a web worker 
+
+*Regular Javascript*
+
+    var worker = new WorkerProxy();
+    worker(function () { 
+        // this will run in a web worker
+    });
+    worker('/* this will run in a web worker */');
+    
+### Worker clusters
+
+Add inter-worker communication capabilities as well as shared storage 
+to enable multiprocessing/concurrent capabilities to workers (e.g. 
+spawn N instances of the same worker and aggregate them in a cluster 
+with load balancing and shared storage).
+
 Dependencies
 ------------
 * jQuery >= 1.6
