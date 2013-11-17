@@ -28,12 +28,16 @@ asyncTest("Remote eval (function)", 1, function() {
   });
 });
 
-asyncTest("Simple RPC (automatic enumeration)", 2, function() {
+asyncTest("Simple RPC (automatic enumeration)", 4, function() {
   var wp = new WorkerProxy('test-worker.js', function() {
     ok( 'foo' in wp, 'foo is present' );
-    wp.foo(5).done(function(res) {
+    ok( 'oops' in wp, 'oops is present' );
+    wp.foo(5).fail(function() { ok(false); }).done(function(res) {
       equal(res, 6, "remote call success");
-      start();
+      wp.oops('crash! boom! bang!').done(function() { ok(false); }).fail(function(ex) {
+        equal(ex, 'crash! boom! bang!', "remote call exception");
+        start();
+      });
     });
   });
 });

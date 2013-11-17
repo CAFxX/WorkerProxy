@@ -60,7 +60,6 @@
         self.postMessage({cb:e.data.cb, res:res});                                // all is fine: return the result
       } catch (ex) {
         self.postMessage({cb:e.data.cb, ex:ex.toString()});                       // all is lost: return the exception...
-        throw ex;                                                                 // ...and retrhow!
       }
     }, false); 
   }
