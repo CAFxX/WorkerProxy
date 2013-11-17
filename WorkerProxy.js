@@ -3,9 +3,10 @@ if (typeof self.document !== 'undefined') {
   window['WorkerProxy'] = function(jsFile) {
     'use strict';
     var proxy = this;
+    jsFile = jsFile ? jsFile : URL.createObjectURL(new Blob());                 // if no jsFile, create an empty Worker
+    
     var remoteCall = (function() {
       var cb = Object.create(null), cb_idx = 0;                                 // create the registry (cb) and Deferred ID (cb_idx)
-
       var worker = new Worker(jsFile);                                          // load the supplied javascript file in the worker
       worker.addEventListener('message', function(e) {                          // message handler (reply from worker)
         var deferred = cb[e.data.cb];
@@ -41,11 +42,13 @@ if (typeof self.document !== 'undefined') {
     'use strict';
     try {
       if (!e.data.func) {                                                       // empty remoteCall: enumerate and return the names of the top-level functions in the worker
-        var res = [], 
+        var res = ['__eval'], 
             target = self.exports ? self.exports : self;                        // if the worker has defined self.exports use it, otherwise enumerate the top-level functions
         for (var f in self) 
           if (self.hasOwnProperty(f) && self[f] instanceof Function) 
             res.push(f);
+      } else if (e.data.func === '__eval') {
+        var res = eval.apply(self, e.data.args);
       } else {
         var res = self[e.data.func].apply(self, e.data.args);                   // named remoteCall: call the function named e.data.func
       }
