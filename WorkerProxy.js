@@ -46,20 +46,20 @@
     // Web Worker code
     self.addEventListener('message', function(e) {
       try {
+        var target = self.exports ? self.exports : self;                          // if the worker has defined self.exports use it, otherwise enumerate the top-level functions
         if (!e.data.func) {                                                       // empty remoteCall: enumerate and return the names of the top-level functions in the worker
-          var res = ['eval'], 
-              target = self.exports ? self.exports : self;                        // if the worker has defined self.exports use it, otherwise enumerate the top-level functions
+          var res = ['eval'];                                                     
           for (var f in target) 
             if (target.hasOwnProperty(f) && target[f] instanceof Function) 
               res.push(f);
         } else if (e.data.func === 'eval') {
           var res = eval.apply(self, e.data.args);
         } else {
-          var res = self[e.data.func].apply(self, e.data.args);                   // named remoteCall: call the function named e.data.func
+          var res = target[e.data.func].apply(self, e.data.args);                 // named remoteCall: call the function named e.data.func
         }
         self.postMessage({cb:e.data.cb, res:res});                                // all is fine: return the result
       } catch (ex) {
-        self.postMessage({cb:e.data.cb, ex:ex});                                  // all is lost: return the exception...
+        self.postMessage({cb:e.data.cb, ex:ex.toString()});                       // all is lost: return the exception...
         throw ex;                                                                 // ...and retrhow!
       }
     }, false); 
