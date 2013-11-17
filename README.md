@@ -132,6 +132,11 @@ Dependencies
 ------------
 * jQuery >= 1.6
 
+Unit tests
+----------
+
+<iframe src="https://rawgithub.com/CAFxX/WorkerProxy/master/test/test.htm"></iframe>
+
 License
 -------
 MIT
