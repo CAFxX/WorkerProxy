@@ -49,8 +49,8 @@
         if (!e.data.func) {                                                       // empty remoteCall: enumerate and return the names of the top-level functions in the worker
           var res = ['eval'], 
               target = self.exports ? self.exports : self;                        // if the worker has defined self.exports use it, otherwise enumerate the top-level functions
-          for (var f in self) 
-            if (self.hasOwnProperty(f) && self[f] instanceof Function) 
+          for (var f in target) 
+            if (target.hasOwnProperty(f) && target[f] instanceof Function) 
               res.push(f);
         } else if (e.data.func === 'eval') {
           var res = eval.apply(self, e.data.args);
