@@ -47,7 +47,6 @@
     self.addEventListener('message', function(e) {
       try {
         if (!e.data.func) {                                                       // empty remoteCall: enumerate and return the names of the top-level functions in the worker
-          //throw JSON.stringify(exports);
           var res = ['eval'], 
               target = self.exports ? self.exports : self;                        // if the worker has defined self.exports use it, otherwise enumerate the top-level functions
           for (var f in self) 

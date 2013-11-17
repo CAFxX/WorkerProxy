@@ -1,5 +1,9 @@
 importScripts('../WorkerProxy.js');
 
-var baz = function bar(x) {
+function bar(x) {
   return x+1;
 }
+
+exports = {
+  foo: bar
+};
