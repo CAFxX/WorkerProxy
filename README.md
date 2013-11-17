@@ -10,6 +10,24 @@ Big Fat Warning™
 
 Wait... now that I think about it, *it will probably kill your cat*. You've been warned!
 
+Getting started
+---------------
+Add WorkerProxy.js (and jQuery) to your HTML
+
+    <script type="text/javascript" src="WorkerProxy.js"></script>
+
+Import WorkerProxy.js at the top of the files you'll be executing as worker code (e.g. foo-worker.js)
+ 
+    importScripts('WorkerProxy.js');
+
+Instantiate a worker for each of the files above
+
+    var foo = new WorkerProxy('foo-worker.js');
+
+foo is now an object with a member function for each function defined in foo-worker.js 
+(e.g., if inside foo-worker.js you have two functions named bar() and baz(), you can call them 
+by calling foo.bar() and foo.baz()). See the examples for more.
+
 Examples
 --------
 
@@ -23,25 +41,14 @@ Examples
       return x+1;
     }
 
-*foo.htm*
+*Regular Javascript*
 
-    <html>
-      <head>
-        <script type="text/javascript" src="WorkerProxy.js"></script>
-        <script type="text/javascript">
-        
-          var worker = new WorkerProxy('foo-worker.js');
-          
-          worker.foo(5).then(function (result) {
-            alert(result); // will display '6'
-          });
-          
-        </script>
-      </head>
-      <body>
-      </body>
-    </html>
+    var worker = new WorkerProxy('foo-worker.js');
     
+    worker.foo(5).then(function (result) {
+      alert(result); // will display '6'
+    });
+          
 ### Simple RPC (explicit exports)
 
 *foo-worker.js*
@@ -56,25 +63,14 @@ Examples
       foo: bar // export function bar as "foo"
     };
 
-*foo.htm*
+*Regular Javascript*
 
-    <html>
-      <head>
-        <script type="text/javascript" src="WorkerProxy.js"></script>
-        <script type="text/javascript">
-        
-          var worker = new WorkerProxy('foo-worker.js');
+    var worker = new WorkerProxy('foo-worker.js');
+    
+    worker.foo(5).then(function (result) {
+      alert(result); // will display '6'
+    });
           
-          worker.foo(5).then(function (result) {
-            alert(result); // will display '6'
-          });
-          
-        </script>
-      </head>
-      <body>
-      </body>
-    </html>    
-
 Planned features
 ----------------
 The following features are not implemented yet, but are on the roadmap.
@@ -130,7 +126,7 @@ with load balancing and shared storage).
 
 Dependencies
 ------------
-* jQuery >= 1.6
+* jQuery >= 1.6 (jQuery is required only in regular Javascript code, not inside the workers)
 
 Unit tests
 ----------
