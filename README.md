@@ -137,4 +137,4 @@ to open the unit test page for master.
 
 License
 -------
-MIT
+[MIT](LICENSE)
